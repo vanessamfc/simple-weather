@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-import { Container } from "./styles";
+import { Container, StyledButton } from "./styles";
 
 const Home: React.FC = () => {
   const [search, setSearch] = useState("");
@@ -23,13 +23,14 @@ const Home: React.FC = () => {
       },
     } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=9294b45a8bfba854cc201f95aef3c1af
     `);
-
+    const newDescription =
+      description.charAt(0).toUpperCase() + description.slice(1);
     setCity(name);
     setCountry(country);
     setTemp(temp);
     setTempMax(temp_max);
     setTempMin(temp_min);
-    setWheatherDescription(description);
+    setWheatherDescription(newDescription);
   }
 
   return (
@@ -42,21 +43,30 @@ const Home: React.FC = () => {
             setSearch(e.target.value);
           }}
         />
-        <button type="submit" onClick={handleSubmit}>
+        <StyledButton
+          variant="contained"
+          color="primary"
+          type="submit"
+          onClick={handleSubmit}
+        >
           search
-        </button>
+        </StyledButton>
       </div>
       <div>
         <h2>{wheatherDescription}</h2>
         {temp ? <p>{temp}°</p> : <p></p>}
-        {tempMin && tempMax && (
-          <span>
-            {tempMin}° / {tempMax}°
-          </span>
-        )}
-        <span>
-          {city},{country}
-        </span>
+        <div>
+          {tempMin && tempMax && (
+            <span>
+              {tempMin}° / {tempMax}°
+            </span>
+          )}
+          {city && country && (
+            <span>
+              {city}, {country}
+            </span>
+          )}
+        </div>
       </div>
     </Container>
   );
