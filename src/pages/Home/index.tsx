@@ -3,15 +3,26 @@ import axios from "axios";
 
 import { Container, StyledButton } from "./styles";
 
+interface Weather {
+  city: string;
+  country: string;
+  feelsLike: string;
+  temp: string;
+  tempMax: string;
+  tempMin: string;
+  wheatherDescription: string;
+}
+
 const Home: React.FC = () => {
   const [search, setSearch] = useState("");
-  const [city, setCity] = useState();
-  const [country, setCountry] = useState("");
-  const [feelsLike, setFeelsLike] = useState("");
-  const [temp, setTemp] = useState("");
-  const [tempMax, setTempMax] = useState("");
-  const [tempMin, setTempMin] = useState("");
-  const [wheatherDescription, setWheatherDescription] = useState("");
+  // const [city, setCity] = useState();
+  // const [country, setCountry] = useState("");
+  // const [feelsLike, setFeelsLike] = useState("");
+  // const [temp, setTemp] = useState("");
+  // const [tempMax, setTempMax] = useState("");
+  // const [tempMin, setTempMin] = useState("");
+  // const [wheatherDescription, setWheatherDescription] = useState("");
+  const [weather, setWeather] = useState<Weather | undefined>();
 
   async function handleSubmit() {
     const {
@@ -23,14 +34,19 @@ const Home: React.FC = () => {
       },
     } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=9294b45a8bfba854cc201f95aef3c1af
     `);
+
     const newDescription =
       description.charAt(0).toUpperCase() + description.slice(1);
-    setCity(name);
-    setCountry(country);
-    setTemp(temp);
-    setTempMax(temp_max);
-    setTempMin(temp_min);
-    setWheatherDescription(newDescription);
+
+    setWeather({
+      city: name,
+      country,
+      feelsLike: feels_like,
+      temp,
+      tempMax: temp_max,
+      tempMin: temp_min,
+      wheatherDescription: newDescription,
+    });
   }
 
   return (
@@ -53,20 +69,23 @@ const Home: React.FC = () => {
         </StyledButton>
       </div>
       <div>
-        <h2>{wheatherDescription}</h2>
-        {temp ? <p>{temp}°</p> : <p></p>}
-        <div>
-          {tempMin && tempMax && (
-            <span>
-              {tempMin}° / {tempMax}°
-            </span>
-          )}
-          {city && country && (
-            <span>
-              {city}, {country}
-            </span>
-          )}
-        </div>
+        {weather ? (
+          <div>
+            <h2>{weather.wheatherDescription}</h2>
+            <p>{weather.temp}°C</p>
+            <div>
+              <span>
+                {weather.tempMin}°C / {weather.tempMax}°C
+              </span>
+
+              <span>
+                {weather.city}, {weather.country}
+              </span>
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </Container>
   );

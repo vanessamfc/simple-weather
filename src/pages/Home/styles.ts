@@ -11,13 +11,15 @@ export const Container = styled.div`
   background: linear-gradient(to right, #003973, #e5e5be);
   > div:first-child {
     display: flex;
+    flex-direction: row;
+
     > input {
       border-radius: 5px;
       width: 300px;
       height: 45px;
       border: 1px solid #8e8e8e;
       padding: 10px;
-      font-size: 16px;
+      font-size: 17px;
       margin-top: 10px;
       margin-right: 5px;
     }
@@ -31,23 +33,26 @@ export const Container = styled.div`
   > div:last-child {
     display: flex;
     flex-direction: column;
-
-    border-radius: 20px;
-    width: 250px;
-    height: 90px;
-    padding: 10px;
-    > h2 {
-      font-size: 30px;
-      margin-bottom: 5px;
-    }
-    > p {
-      font-size: 35px;
-      margin-bottom: 10px;
-    }
+    margin-top: 30px;
     > div {
-      > span {
-        font-size: 20px;
-        margin-right: 5px;
+      border-radius: 20px;
+
+      padding: 10px;
+      align-items: center;
+      background-color: #fff;
+      > h2 {
+        font-size: 30px;
+        margin-bottom: 5px;
+      }
+      > p {
+        font-size: 35px;
+        margin-bottom: 10px;
+      }
+      > div {
+        > span {
+          font-size: 20px;
+          margin-right: 5px;
+        }
       }
     }
   }
