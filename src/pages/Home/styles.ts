@@ -1,14 +1,34 @@
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
 
-export const Container = styled.div`
+function getBackground(weather: string) {
+  switch (weather) {
+    case "Clear": {
+      return "linear-gradient(to right, #1c92d2, #f2fcfe)";
+    }
+    case "Rain": {
+      return "linear-gradient(to left, #bdc3c7, #2c3e50)";
+    }
+    case "Snow": {
+      return "linear-gradient(to left, #e0eafc, #cfdef3)";
+    }
+    case "Mist ": {
+      return "linear-gradient(to right, #757f9a, #d7dde8);";
+    }
+    default:
+      return "linear-gradient(to right, #286DD9, #E9E9E9);";
+  }
+}
+
+export const Container = styled.div<{ weather: string }>`
   height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, #003973, #e5e5be);
+  transition: all 1s ease-in-out;
+  background: ${({ weather }) => getBackground(weather)};
   > div:first-child {
     display: flex;
     flex-direction: row;

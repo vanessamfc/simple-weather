@@ -11,6 +11,8 @@ interface Weather {
   tempMax: string;
   tempMin: string;
   wheatherDescription: string;
+  main: string;
+  icon: string;
 }
 
 const Home: React.FC = () => {
@@ -29,7 +31,7 @@ const Home: React.FC = () => {
       data: {
         main: { feels_like, temp, temp_max, temp_min },
         sys: { country },
-        weather: [{ main, description }],
+        weather: [{ main, description, icon }],
         name,
       },
     } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=9294b45a8bfba854cc201f95aef3c1af
@@ -46,11 +48,13 @@ const Home: React.FC = () => {
       tempMax: temp_max,
       tempMin: temp_min,
       wheatherDescription: newDescription,
+      main,
+      icon,
     });
   }
 
   return (
-    <Container>
+    <Container weather={weather?.main || "Clear"}>
       <div>
         <input
           type="text"
@@ -71,6 +75,7 @@ const Home: React.FC = () => {
       <div>
         {weather ? (
           <div>
+            <img src={weather.icon} alt="weather icon" />
             <h2>{weather.wheatherDescription}</h2>
             <p>{weather.temp}°C</p>
             <div>
