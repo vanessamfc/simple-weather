@@ -17,40 +17,40 @@ interface Weather {
 
 const Home: React.FC = () => {
   const [search, setSearch] = useState("");
-  // const [city, setCity] = useState();
-  // const [country, setCountry] = useState("");
-  // const [feelsLike, setFeelsLike] = useState("");
-  // const [temp, setTemp] = useState("");
-  // const [tempMax, setTempMax] = useState("");
-  // const [tempMin, setTempMin] = useState("");
-  // const [wheatherDescription, setWheatherDescription] = useState("");
   const [weather, setWeather] = useState<Weather | undefined>();
-
+  const [erro, setErro] = useState("");
   async function handleSubmit() {
-    const {
-      data: {
-        main: { feels_like, temp, temp_max, temp_min },
-        sys: { country },
-        weather: [{ main, description, icon }],
-        name,
-      },
-    } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=9294b45a8bfba854cc201f95aef3c1af
-    `);
+    try {
+      setErro("");
+      const {
+        data: {
+          main: { feels_like, temp, temp_max, temp_min },
+          sys: { country },
+          weather: [{ main, description, icon }],
+          name,
+        },
+      } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=9294b45a8bfba854cc201f95aef3c1af&lang=pt_br
+      `);
 
-    const newDescription =
-      description.charAt(0).toUpperCase() + description.slice(1);
+      const newDescription =
+        description.charAt(0).toUpperCase() + description.slice(1);
 
-    setWeather({
-      city: name,
-      country,
-      feelsLike: feels_like,
-      temp,
-      tempMax: temp_max,
-      tempMin: temp_min,
-      wheatherDescription: newDescription,
-      main,
-      icon,
-    });
+      setWeather({
+        city: name,
+        country,
+        feelsLike: feels_like,
+        temp,
+        tempMax: temp_max,
+        tempMin: temp_min,
+        wheatherDescription: newDescription,
+        main,
+        icon,
+      });
+    } catch (error) {
+      if (error.response.status === 404) {
+        setErro(error.response.data.message);
+      }
+    }
   }
 
   return (
@@ -73,23 +73,29 @@ const Home: React.FC = () => {
         </StyledButton>
       </div>
       <div>
-        {weather ? (
-          <div>
-            <img src={weather.icon} alt="weather icon" />
-            <h2>{weather.wheatherDescription}</h2>
-            <p>{weather.temp}°C</p>
-            <div>
-              <span>
-                {weather.tempMin}°C / {weather.tempMax}°C
-              </span>
-
-              <span>
-                {weather.city}, {weather.country}
-              </span>
-            </div>
-          </div>
+        {erro ? (
+          <p>{erro}</p>
         ) : (
-          <></>
+          <>
+            {" "}
+            {weather ? (
+              <div>
+                <h2>{weather.wheatherDescription}</h2>
+                <p>{weather.temp}°C</p>
+                <div>
+                  <span>
+                    {weather.tempMin}°C / {weather.tempMax}°C
+                  </span>
+
+                  <span>
+                    {weather.city}, {weather.country}
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <></>
+            )}{" "}
+          </>
         )}
       </div>
     </Container>
