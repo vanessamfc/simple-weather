@@ -37,38 +37,50 @@ export const Container = styled.div<{ weather: string }>`
       border-radius: 5px;
       width: 300px;
       height: 45px;
-      border: 1px solid #8e8e8e;
+      border: 1px solid #3f51b5;
+      
+      box-shadow: 0px 0px 10px -1px rgba(0, 0, 0, 0.15);
       padding: 10px;
       font-size: 17px;
       margin-top: 10px;
       margin-right: 5px;
     }
-    > input:hover {
-      border-color: #1b1b1b;
-    }
-    > input:focus {
-      border-color: #1b1b1b;
-    }
+    
   }
   > div:last-child {
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
+    margin-top:20px;
     > div {
+      display:flex;
+      flex-direction: column;
       border-radius: 20px;
-
+      box-shadow: 0px 0px 10px -1px rgba(0, 0, 0, 0.55);
       padding: 15px;
-      align-items: center;
+      align-items: flex-start;
       background-color: #fff;
       > h2 {
         font-size: 30px;
         margin-bottom: 5px;
       }
+      div{
+        display:flex;
+        flex-direction:row;
+        justify-content:center;
+        align-items:center;
+        padding-bottom:10px;
+      > svg {
+        height: 35px;
+        width: 35px;
+        margin-left:5px;
+
+      }
       > p {
         font-size: 35px;
-        margin-bottom: 10px;
-      }
-      > div {
+        }
+      } 
+
+      > div:last-child
         > span {
           font-size: 20px;
           margin-right: 5px;

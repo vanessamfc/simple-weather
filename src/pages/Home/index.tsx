@@ -1,5 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {
+  WiDaySunny,
+  WiRain,
+  WiSnow,
+  WiFog,
+  WiThunderstorm,
+  WiSmoke,
+  WiTornado,
+  WiCloudy,
+} from "react-icons/wi";
 
 import { Container, StyledButton } from "./styles";
 
@@ -12,7 +22,6 @@ interface Weather {
   tempMin: number;
   wheatherDescription: string;
   main: string;
-  icon: string;
 }
 
 const Home: React.FC = () => {
@@ -26,7 +35,7 @@ const Home: React.FC = () => {
         data: {
           main: { feels_like, temp, temp_max, temp_min },
           sys: { country },
-          weather: [{ main, description, icon }],
+          weather: [{ main, description }],
           name,
         },
       } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=9294b45a8bfba854cc201f95aef3c1af&lang=pt_br
@@ -44,7 +53,6 @@ const Home: React.FC = () => {
         tempMin: Math.round(temp_min),
         wheatherDescription: newDescription,
         main,
-        icon,
       });
     } catch (error) {
       if (error.response.status === 404) {
@@ -53,11 +61,43 @@ const Home: React.FC = () => {
     }
   }
 
+  function weatherIcon(weather: string) {
+    switch (weather) {
+      case "Clear": {
+        return <WiDaySunny />;
+      }
+      case "Rain" || "Drizzle": {
+        return <WiRain />;
+      }
+      case "Snow": {
+        return <WiSnow />;
+      }
+      case "Mist" || "Haze" || "Dust" || "Fog" || "Sand" || "Ash" || "Squall": {
+        return <WiFog />;
+      }
+      case "Thunderstorm": {
+        return <WiThunderstorm />;
+      }
+      case "Clouds": {
+        return <WiCloudy />;
+      }
+      case "Smoke": {
+        return <WiSmoke />;
+      }
+      case "Tornado": {
+        return <WiTornado />;
+      }
+      default:
+        return <WiCloudy />;
+    }
+  }
+
   return (
     <Container weather={weather?.main || "Clear"}>
       <div>
         <input
           type="text"
+          autoFocus
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
@@ -69,7 +109,7 @@ const Home: React.FC = () => {
           type="submit"
           onClick={handleSubmit}
         >
-          search
+          Buscar
         </StyledButton>
       </div>
       <div>
@@ -81,7 +121,11 @@ const Home: React.FC = () => {
             {weather ? (
               <div>
                 <h2>{weather.wheatherDescription}</h2>
-                <p>{weather.temp}°C</p>
+                <div>
+                  <p>{weather.temp}°C</p>
+                  {weatherIcon(weather.main)}
+                </div>
+
                 <div>
                   <span>
                     {weather.tempMin}°C / {weather.tempMax}°C
