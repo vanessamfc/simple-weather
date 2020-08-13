@@ -6,10 +6,10 @@ import { Container, StyledButton } from "./styles";
 interface Weather {
   city: string;
   country: string;
-  feelsLike: string;
-  temp: string;
-  tempMax: string;
-  tempMin: string;
+  feelsLike: number;
+  temp: number;
+  tempMax: number;
+  tempMin: number;
   wheatherDescription: string;
   main: string;
   icon: string;
@@ -39,9 +39,9 @@ const Home: React.FC = () => {
         city: name,
         country,
         feelsLike: feels_like,
-        temp,
-        tempMax: temp_max,
-        tempMin: temp_min,
+        temp: Math.round(temp),
+        tempMax: Math.round(temp_max),
+        tempMin: Math.round(temp_min),
         wheatherDescription: newDescription,
         main,
         icon,
