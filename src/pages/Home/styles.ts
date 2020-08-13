@@ -57,7 +57,7 @@ export const Container = styled.div<{ weather: string }>`
     > div {
       border-radius: 20px;
 
-      padding: 10px;
+      padding: 15px;
       align-items: center;
       background-color: #fff;
       > h2 {
