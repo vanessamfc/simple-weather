@@ -98,9 +98,13 @@ const Home: React.FC = () => {
         <input
           type="text"
           autoFocus
+          placeholder="Pesquise por uma cidade"
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
+          }}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") handleSubmit();
           }}
         />
         <StyledButton
@@ -114,7 +118,7 @@ const Home: React.FC = () => {
       </div>
       <div>
         {erro ? (
-          <p>{erro}</p>
+          <p>Desculpe, não encontramos esta cidade.</p>
         ) : (
           <>
             {" "}
