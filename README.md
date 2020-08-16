@@ -4,7 +4,7 @@
 
 Simple Weather é uma aplicação que exibe o clima atual da cidade pesquisada.
 
-![Simple Weather](/readmeImg/simpleWeather.gif?raw=true "Simple Weather")
+![Simple Weather](/readmeGif/simpleWeather.gif?raw=true "Simple Weather")
 
 ## Get started
 
