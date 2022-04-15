@@ -38,7 +38,7 @@ const Home: React.FC = () => {
           weather: [{ main, description }],
           name,
         },
-      } = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=9294b45a8bfba854cc201f95aef3c1af&lang=pt_br
+      } = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=9294b45a8bfba854cc201f95aef3c1af&lang=pt_br
       `);
 
       const newDescription =
