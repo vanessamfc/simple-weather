@@ -1,5 +1,5 @@
 # Simple Weather
-Demo: [![Netlify Status](https://api.netlify.com/api/v1/badges/eac807aa-4634-426e-9c6b-5646f4cf0961/deploy-status)](http://simpleweather.vanessamfc.site/)
+Demo: (https://simple-weather-three.vercel.app/)
 ## Sobre
 
 Simple Weather é uma aplicação que exibe o clima atual da cidade pesquisada.
